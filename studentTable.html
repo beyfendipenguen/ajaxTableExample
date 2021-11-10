@@ -6,20 +6,40 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
     <script src="https://code.jquery.com/jquery-3.6.0.js"
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
     <script>
+
         $.ajax({
             url: 'src/ogrenci.xml',
             dataType: 'xml',
             success: function (xml) {
-                $(xml).find('ogrenci').each(function () {
-                    $(".timeline").append('<li>' + $(this).text() + '</li>');
+                $(xml).find('ogrenci').each(function (index, element) {
+                    var ad = $(this).find("ad").text();
+                    var soyad = $(this).find("soyad").text();
+                    var numara = $(this).find("numara").text();
+                    var sinif = $(this).find("sinif").text();
+                    var bolum = $(this).find("bolum").text();
+                    var myText = "<tr>"+
+                    `<th scope="row">${index+1}</th>`+
+                    "<td>"+ numara + "</td>"+
+                    "<td>"+ ad + "</td>"+
+                    "<td>"+ soyad + "</td>"+
+                    "<td>"+ sinif + "</td>"+
+                    "<td>"+ bolum + "</td>"+
+                    "</tr>"
+
+                    $("#table_body").append(myText);
+
+
                 });
             },
             error: function () {
-                $('.timeline').text('başarısız');
+                $('.unordered_list').text('başarısız');
             }
         });
     </script>
@@ -27,11 +47,33 @@
 </head>
 
 <body>
-    <div class="timeline">
-        <ul>
-        </ul>
+    <ul class="unordered_list"></ul>
+    <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Numara</th>
+                            <th scope="col">Ad</th>
+                            <th scope="col">Soyad</th>
+                            <th scope="col">Sınıf</th>
+                            <th scope="col">Bölüm</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table_body">
+                  
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>
